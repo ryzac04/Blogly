@@ -8,8 +8,7 @@
     {% for user in users %}
     <li><a href="/users/{{user.id}}">{{user.full_name}}</a></li>
     {% endfor %}
-    <a href="/users/new"><button>New User</button></a>
-
+    <a href="/users/new"><button class="mt-2 btn btn-sm btn-secondary">New User</button></a>
 </ul>
 
 {% endblock %}

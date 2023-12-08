@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
+import datetime
 
 db = SQLAlchemy()
 
@@ -30,3 +31,17 @@ class User(db.Model):
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class Post(db.Model):
+    """Posts model."""
+
+    __tablename__ = "posts"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(50))
+    content = db.Column(db.String)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
+    author_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+
+    author = db.relationship("User", backref="posts", cascade="all, delete-orphan")
